@@ -1,6 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger"
 import { IsNotEmpty, IsString } from "class-validator"
-import { User } from "src/users/interface/user.interface"
 
 export class CriarPostDto {
     @ApiProperty({
@@ -9,7 +8,7 @@ export class CriarPostDto {
     })
     @IsString()
     @IsNotEmpty()
-    author: User
+    readonly author: string
 
     @ApiProperty({
         description: "Conteúdo do testo",

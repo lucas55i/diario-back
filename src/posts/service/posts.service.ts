@@ -1,6 +1,7 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { User } from 'src/users/interface/user.interface';
 import { CriarPostDto } from '../dtos/criar-post.dto';
 import { Posts } from '../interface/post.interface';
 
@@ -8,7 +9,8 @@ import { Posts } from '../interface/post.interface';
 export class PostsService {
 
     constructor(
-        @InjectModel('Posts') private readonly postsModel: Model<Posts>
+        @InjectModel('Posts') private readonly postsModel: Model<Posts>,
+
     ) { }
 
     async consultarPosts(): Promise<Array<Posts>> {
@@ -19,9 +21,8 @@ export class PostsService {
         const { author } = criarPostDto;
 
         const usuarioEncontrado = await this.postsModel.findOne({ author }).exec();
-
         if (!usuarioEncontrado) {
-            throw new BadRequestException(`Autor com nome: ${author} não encontrado`)
+            throw new NotFoundException(`Autor com nome: ${author} não encontrado`)
         }
         const jogadorCriado = new this.postsModel(criarPostDto);
         return await jogadorCriado.save();
