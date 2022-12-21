@@ -8,7 +8,6 @@ async function bootstrap() {
     .setTitle('Diario API')
     .setDescription('Diário Api')
     .setVersion('1.0')
-    .addTag('Diário')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
