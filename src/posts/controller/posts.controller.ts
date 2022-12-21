@@ -5,18 +5,16 @@ import { PostsService } from '../service/posts.service';
 
 @Controller('api/v1/posts')
 export class PostsController {
-
-    constructor(private readonly postService: PostsService){}
-
+    constructor(private readonly postService: PostsService) { }
 
     @Get()
-    async consultarPosts(){
+    async consultarPosts() {
         return this.postService.consultarPosts()
     }
 
     @Post()
     @UsePipes(ValidationPipe)
-    async criarPost(@Body() criarPostDto: CriarPostDto): Promise<Posts>{
+    async criarPost(@Body() criarPostDto: CriarPostDto): Promise<Posts> {
         return await this.postService.criarPost(criarPostDto)
     }
 

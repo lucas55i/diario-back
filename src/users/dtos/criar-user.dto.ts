@@ -4,6 +4,4 @@ export class CriarUserDto{
     @IsString()
     @IsNotEmpty()
     nome: string
-
- 
 }
