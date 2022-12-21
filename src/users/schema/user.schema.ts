@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
 export const UserSchema = new mongoose.Schema({
-    author: {type: String},
-    conteudo: {type: String}
+    nome: {type: String},
 },{timestamps: true, collection: 'users'})
