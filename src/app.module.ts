@@ -5,10 +5,11 @@ import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [MongooseModule.forRoot(
-    'mongodb://root:example@localhost:27017',
-  )
-    ,PostsModule, UsersModule],
+    'mongodb://root:example@localhost:27017'
+  ), 
+  PostsModule, 
+  UsersModule],
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }
