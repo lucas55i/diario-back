@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CriarUserDto } from '../dtos/criar-user.dto';
@@ -26,5 +26,14 @@ export class UsersService {
     const jogadorCriado = new this.userModel(criaUserDto);
     return await jogadorCriado.save();
 
+  }
+
+  async consultarUsuarioPeloId(_id: string): Promise<User> {
+    const jogadorEncontrado = await this.userModel.findOne({ _id }).exec();
+
+    if (!jogadorEncontrado) {
+      throw new NotFoundException(`Jogador com id ${_id} não encontrado`)
+    }
+    return jogadorEncontrado
   }
 }
