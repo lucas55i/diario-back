@@ -1,30 +1,28 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { User } from 'src/users/interface/user.interface';
 import { CriarPostDto } from '../dtos/criar-post.dto';
 import { Posts } from '../interface/post.interface';
 
 @Injectable()
 export class PostsService {
+  constructor(
+    @InjectModel('Posts') private readonly postsModel: Model<Posts>,
+  ) {}
 
-    constructor(
-        @InjectModel('Posts') private readonly postsModel: Model<Posts>,
+  async consultarPosts(): Promise<Array<Posts>> {
+    return await this.postsModel.find().exec();
+  }
 
-    ) { }
+  async criarPost(criarPostDto: CriarPostDto): Promise<Posts> {
+    // TODO: Correção a ser feita
+    // const { author } = criarPostDto;
 
-    async consultarPosts(): Promise<Array<Posts>> {
-        return await this.postsModel.find().exec()
-    }
-
-    async criarPost(criarPostDto: CriarPostDto): Promise<Posts> {
-        const { author } = criarPostDto;
-
-        const usuarioEncontrado = await this.postsModel.findOne({ author }).exec();
-        if (!usuarioEncontrado) {
-            throw new NotFoundException(`Autor com nome: ${author} não encontrado`)
-        }
-        const jogadorCriado = new this.postsModel(criarPostDto);
-        return await jogadorCriado.save();
-    }
+    // const usuarioEncontrado = await this.postsModel.findOne({ author }).exec();
+    // if (!usuarioEncontrado) {
+    //   throw new NotFoundException(`Autor com nome: ${author} não encontrado`);
+    // }
+    const jogadorCriado = new this.postsModel(criarPostDto);
+    return await jogadorCriado.save();
+  }
 }

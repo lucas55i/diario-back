@@ -1,4 +1,4 @@
 export interface Posts extends Document {
-    author: string;
-    conteudo: string
+  author: string;
+  conteudo: string;
 }
