@@ -15,13 +15,6 @@ export class PostsService {
   }
 
   async criarPost(criarPostDto: CriarPostDto): Promise<Posts> {
-    // TODO: Correção a ser feita
-    // const { author } = criarPostDto;
-
-    // const usuarioEncontrado = await this.postsModel.findOne({ author }).exec();
-    // if (!usuarioEncontrado) {
-    //   throw new NotFoundException(`Autor com nome: ${author} não encontrado`);
-    // }
     const jogadorCriado = new this.postsModel(criarPostDto);
     return await jogadorCriado.save();
   }
