@@ -5,7 +5,7 @@ import { AllExceptionFilter } from './common/http-exeception/http-exception.filt
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.useGlobalFilters(new AllExceptionFilter)
+  app.useGlobalFilters(new AllExceptionFilter());
 
   const config = new DocumentBuilder()
     .setTitle('Diario API')
